@@ -30,7 +30,7 @@ jobs:
         run: node src/generate.js
         env:
           DUOLINGO_USERNAME: yongsk0066
-          THEME: github-dark
+          THEME: dark
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
