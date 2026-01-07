@@ -42,4 +42,10 @@ open dist/card.svg
 ## Environment Variables
 
 - `DUOLINGO_USERNAME` - Duolingo username (default: yongsk0066)
-- `THEME` - Card theme: github-dark, dark, dracula (default: github-dark)
+- `THEME` - Card theme: dark, github-dark, dracula (default: dark)
+
+## Credits
+
+Based on [Duolingo-Stats-Card](https://github.com/KevzPeter/Duolingo-Stats-Card) by [@KevzPeter](https://github.com/KevzPeter).
+
+This is a self-hosted version using GitHub Actions + GitHub Pages for automatic daily updates without relying on external services.
