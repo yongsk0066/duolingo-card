@@ -1,0 +1,13 @@
+{
+  "name": "duolingo-card",
+  "version": "1.0.0",
+  "description": "Auto-updating Duolingo stats card for GitHub Pages",
+  "type": "module",
+  "scripts": {
+    "generate": "node src/generate.js",
+    "dev": "node src/generate.js && open dist/card.svg"
+  },
+  "keywords": ["duolingo", "stats", "github-pages"],
+  "author": "yongsk0066",
+  "license": "MIT"
+}

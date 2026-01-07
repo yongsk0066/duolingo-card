@@ -1,0 +1,41 @@
+name: Update Duolingo Card
+
+on:
+  schedule:
+    # Run at 00:00 and 12:00 UTC (09:00 and 21:00 KST)
+    - cron: '0 0,12 * * *'
+  workflow_dispatch: # Allow manual trigger
+  push:
+    branches:
+      - main
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate card
+        run: node src/generate.js
+        env:
+          DUOLINGO_USERNAME: yongsk0066
+          THEME: github-dark
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          commit_message: 'Update Duolingo stats card'
+          force_orphan: true
