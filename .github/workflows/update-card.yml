@@ -2,8 +2,8 @@ name: Update Duolingo Card
 
 on:
   schedule:
-    # Run at 00:00 and 12:00 UTC (09:00 and 21:00 KST)
-    - cron: '0 0,12 * * *'
+    # Run at 00:00, 04:00, 10:00, 14:00 UTC (09:00, 13:00, 19:00, 23:00 KST)
+    - cron: '0 0,4,10,14 * * *'
   workflow_dispatch: # Allow manual trigger
   push:
     branches:
