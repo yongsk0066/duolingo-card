@@ -5,9 +5,6 @@ on:
     # Run at 00:00, 04:00, 10:00, 14:00 UTC (09:00, 13:00, 19:00, 23:00 KST)
     - cron: '0 0,4,10,14 * * *'
   workflow_dispatch: # Allow manual trigger
-  push:
-    branches:
-      - main
 
 jobs:
   update:
@@ -32,7 +29,25 @@ jobs:
           DUOLINGO_USERNAME: yongsk0066
           THEME: dark
 
+      - name: Check for changes
+        id: check
+        run: |
+          git fetch origin gh-pages:gh-pages 2>/dev/null || true
+          if git show gh-pages:card.svg > /tmp/old-card.svg 2>/dev/null; then
+            if diff -q dist/card.svg /tmp/old-card.svg > /dev/null 2>&1; then
+              echo "changed=false" >> $GITHUB_OUTPUT
+              echo "No changes detected, skipping deploy"
+            else
+              echo "changed=true" >> $GITHUB_OUTPUT
+              echo "Changes detected, will deploy"
+            fi
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "No previous card found, will deploy"
+          fi
+
       - name: Deploy to GitHub Pages
+        if: steps.check.outputs.changed == 'true'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
